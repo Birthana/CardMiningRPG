@@ -2,19 +2,17 @@ using UnityEngine;
 
 public class Card : MonoBehaviour
 {
-    public CardInfo cardInfo;
-    private Mouse mouse;
-    private Ground ground;
+    private CardInfo cardInfo;
 
-    private void Awake()
+    public void Setup(Character chara, CardInfo newCardInfo)
     {
-        mouse = new Mouse(Camera.main);
-        ground = FindObjectOfType<Ground>();
+        cardInfo = newCardInfo;
+        cardInfo.SetCharacter(chara);
     }
 
-    public void SetCharacter(Character chara) { cardInfo.SetCharacter(chara); }
+    public CardInfo GetInfo() { return cardInfo; }
 
-    public void Action()
+    public void Action(Mouse mouse, Ground ground)
     {
         if (cardInfo is not IActionCard)
         {
