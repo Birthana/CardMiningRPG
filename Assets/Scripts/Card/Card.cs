@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Card : MonoBehaviour
 {
-    private CardInfo cardInfo;
+    [SerializeField]private CardInfo cardInfo;
 
     public void Setup(Character chara, CardInfo newCardInfo)
     {

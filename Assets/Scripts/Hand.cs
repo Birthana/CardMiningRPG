@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class Hand : MonoBehaviour
 {
+    public Character player;
     public Card cardPrefab;
     public float SPACING;
     private List<Card> cards = new List<Card>();
@@ -11,12 +12,11 @@ public class Hand : MonoBehaviour
     private void Awake()
     {
         deck = FindObjectOfType<Deck>();
-        var cardInfo = deck.Draw();
-        Add(FindObjectOfType<Character>(), cardInfo);
-        Add(FindObjectOfType<Character>(), cardInfo);
-        Add(FindObjectOfType<Character>(), cardInfo);
-        Add(FindObjectOfType<Character>(), cardInfo);
-        Add(FindObjectOfType<Character>(), cardInfo);
+        Add(player, deck.Draw());
+        Add(player, deck.Draw());
+        Add(player, deck.Draw());
+        Add(player, deck.Draw());
+        Add(player, deck.Draw());
     }
 
     public void Add(Character chara, CardInfo cardInfo)

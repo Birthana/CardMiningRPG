@@ -8,12 +8,14 @@ public class CardDragger : MonoBehaviour
     private Hand hand;
     private Mouse mouse;
     private Ground ground;
+    private RangeIndicator rangeIndicator;
 
     private void Awake()
     {
         hand = FindObjectOfType<Hand>();
         mouse = new Mouse(Camera.main);
         ground = FindObjectOfType<Ground>();
+        rangeIndicator = FindObjectOfType<RangeIndicator>();
     }
 
     private void Update()
@@ -26,17 +28,34 @@ public class CardDragger : MonoBehaviour
 
     private void TryToPickUp()
     {
-        if (!Input.GetMouseButtonDown(0))
+        if (!Input.GetMouseButtonDown(0) || pickUp != null)
         {
             return;
         }
 
-        var hit = Physics2D.Raycast(new Mouse(Camera.main).GetMousePosition(), Vector2.zero);
+        var hit = Raycast.GetHitAtMouse();
         if (hit)
         {
             pickUp = hit.collider.GetComponent<Card>();
             previousPosition = pickUp.transform.position;
+            DisplayRangeIndicator();
         }
+    }
+
+    private void DisplayRangeIndicator()
+    {
+        if (pickUp == null)
+        {
+            return;
+        }
+
+        var cardInfo = pickUp.GetInfo();
+        if (cardInfo is not IHasRange)
+        {
+            return;
+        }
+
+        ((IHasRange)cardInfo).SpawnIndicator(rangeIndicator);
     }
 
     private void MovePickUpWithMouse()
@@ -62,8 +81,9 @@ public class CardDragger : MonoBehaviour
         }
 
         pickUp.transform.position = previousPosition;
-        pickUp = null;
         previousPosition = Vector3.zero;
+        pickUp = null;
+        rangeIndicator.Despawn();
     }
 
     private void TryToCast()
@@ -79,7 +99,7 @@ public class CardDragger : MonoBehaviour
         }
 
         var cardInfo = pickUp.GetInfo();
-        if (cardInfo is IActionCard && !((IActionCard)cardInfo).CanPlay(mouse, ground))
+        if (cardInfo is IActionCard && !((IActionCard)cardInfo).CanPlay(mouse, ground, rangeIndicator))
         {
             return;
         }
@@ -87,5 +107,6 @@ public class CardDragger : MonoBehaviour
         pickUp.Action(mouse, ground);
         hand.Remove(pickUp);
         pickUp = null;
+        rangeIndicator.Despawn();
     }
 }

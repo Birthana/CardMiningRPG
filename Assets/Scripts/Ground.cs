@@ -15,7 +15,7 @@ public class Ground : MonoBehaviour
     {
         var currentTile = tilemap.WorldToCell(currentPosition);
         var moveTile = tilemap.WorldToCell(movePosition);
-        var distance = (currentTile - moveTile);
+        var distance = currentTile - moveTile;
         return Mathf.Abs(distance.x) + Mathf.Abs(distance.y) <= moveRange;
     }
 }
