@@ -7,16 +7,36 @@ public class Hand : MonoBehaviour
     public Card cardPrefab;
     public float SPACING;
     private List<Card> cards = new List<Card>();
+
     private Deck deck;
+    private Drop drop;
 
     private void Awake()
     {
         deck = FindObjectOfType<Deck>();
+        drop = FindObjectOfType<Drop>();
+        DrawNewHand();
+    }
+
+    public void DrawNewHand()
+    {
+        DiscardHand();
         Add(player, deck.Draw());
         Add(player, deck.Draw());
         Add(player, deck.Draw());
         Add(player, deck.Draw());
         Add(player, deck.Draw());
+    }
+
+    public void DiscardHand()
+    {
+        foreach (var card in cards)
+        {
+            drop.Add(card.GetInfo());
+            Destroy(card.gameObject);
+        }
+
+        cards = new List<Card>();
     }
 
     public void Add(Character chara, CardInfo cardInfo)

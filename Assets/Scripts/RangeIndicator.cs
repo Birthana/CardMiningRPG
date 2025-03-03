@@ -35,7 +35,8 @@ public class RangeIndicator : MonoBehaviour
             var adjacentPositions = GetAdjacentPositions(positionToCheck.position);
             foreach(var adjacentPosition in adjacentPositions)
             {
-                if (Raycast.HitsContain<IDamageable>(adjacentPosition))
+                if (Raycast.HitsContain<IDamageable>(adjacentPosition) ||
+                    Raycast.HitsContain<IMineable>(adjacentPosition))
                 {
                     continue;
                 }
@@ -90,6 +91,11 @@ public class RangeIndicator : MonoBehaviour
 
         foreach (var indicator in indicators)
         {
+            if (!indicator.activeInHierarchy)
+            {
+                continue;
+            }
+
             if (indicator.transform.position == position)
             {
                 return true;

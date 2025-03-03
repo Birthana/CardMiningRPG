@@ -9,6 +9,7 @@ public class CardDragger : MonoBehaviour
     private Mouse mouse;
     private Ground ground;
     private RangeIndicator rangeIndicator;
+    private Drop drop;
 
     private void Awake()
     {
@@ -16,6 +17,7 @@ public class CardDragger : MonoBehaviour
         mouse = new Mouse(Camera.main);
         ground = FindObjectOfType<Ground>();
         rangeIndicator = FindObjectOfType<RangeIndicator>();
+        drop = FindObjectOfType<Drop>();
     }
 
     private void Update()
@@ -99,13 +101,15 @@ public class CardDragger : MonoBehaviour
         }
 
         var cardInfo = pickUp.GetInfo();
-        if (cardInfo is IActionCard && !((IActionCard)cardInfo).CanPlay(mouse, ground, rangeIndicator))
+        if ((cardInfo is IActionCard && !((IActionCard)cardInfo).CanPlay(mouse, ground, rangeIndicator)) ||
+            cardInfo is not IActionCard)
         {
             return;
         }
 
         pickUp.Action(mouse, ground);
         hand.Remove(pickUp);
+        drop.Add(cardInfo);
         pickUp = null;
         rangeIndicator.Despawn();
     }

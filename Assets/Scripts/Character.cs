@@ -25,6 +25,6 @@ public class Character : MonoBehaviour, IDamageable
 
     public void Mine(IMineable mineable)
     {
-        Debug.Log($"Mining {mineable}.");
+        mineable.Mine(this);
     }
 }
