@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: Move
   m_EditorClassIdentifier: 
   sprite: {fileID: -779749149, guid: cb1c78248ce41dc4287d8218d6e0c3fc, type: 3}
+  energyCost: 1

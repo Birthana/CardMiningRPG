@@ -3,12 +3,16 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Mine", menuName = "CardInfo/Mine")]
 public class Mine : CardInfo, IActionCard, IHasRange
 {
+    public int energyCost;
+
     public int GetRange() { return GetCharacter().MINE_RANGE; }
 
     public void SpawnIndicator(RangeIndicator indicator)
     {
         indicator.Spawn(GetCharacter().transform.position, GetRange());
     }
+
+    public int GetEnergy() { return energyCost; }
 
     public bool CanPlay(Mouse mouse, Ground ground, RangeIndicator rangeIndicator)
     {
@@ -42,6 +46,7 @@ public class Mine : CardInfo, IActionCard, IHasRange
 
     public void Action(Mouse mouse, Ground ground)
     {
+        GetCharacter().DecreaseEnergy(GetEnergy());
         var positionToMine = ground.GetClosetTilePosition(mouse.GetMousePosition());
         var mineable = GetTargetAt(positionToMine);
         GetCharacter().Mine(mineable);

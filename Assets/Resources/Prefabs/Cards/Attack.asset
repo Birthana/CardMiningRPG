@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: Attack
   m_EditorClassIdentifier: 
   sprite: {fileID: 928655621, guid: cb1c78248ce41dc4287d8218d6e0c3fc, type: 3}
+  energyCost: 2

@@ -44,7 +44,10 @@ public class RangeIndicator : MonoBehaviour
                 positionsToCheck.Add(new RangePosition(adjacentPosition, positionToCheck.range + 1));
             }
 
-            ShowAt(positionToCheck.position);
+            if (positionToCheck.position != position)
+            {
+                CreateAt(positionToCheck.position);
+            }
         }
     }
 
@@ -68,7 +71,10 @@ public class RangeIndicator : MonoBehaviour
                 positionsToCheck.Add(new RangePosition(adjacentPosition, positionToCheck.range + 1));
             }
 
-            ShowAt(positionToCheck.position);
+            if (positionToCheck.position != position)
+            {
+                CreateAt(positionToCheck.position);
+            }
         }
     }
 
@@ -91,11 +97,6 @@ public class RangeIndicator : MonoBehaviour
 
         foreach (var indicator in indicators)
         {
-            if (!indicator.activeInHierarchy)
-            {
-                continue;
-            }
-
             if (indicator.transform.position == position)
             {
                 return true;
@@ -105,24 +106,14 @@ public class RangeIndicator : MonoBehaviour
         return false;
     }
 
-    public void ShowAt(Vector3 position)
-    {
-        if (Contains(position))
-        {
-            var indicator = GetIndicatorAt(position);
-            indicator.SetActive(true);
-            return;
-        }
-
-        CreateAt(position);
-    }
-
     public void Despawn()
     {
         foreach (var indicator in indicators)
         {
-            indicator.SetActive(false);
+            Destroy(indicator.gameObject);
         }
+
+        indicators = new List<GameObject>();
     }
 
     private void CreateAt(Vector3 position)
@@ -130,28 +121,5 @@ public class RangeIndicator : MonoBehaviour
         var newIndicator = Instantiate(indicatorPrefab, transform);
         newIndicator.transform.position = position;
         indicators.Add(newIndicator);
-    }
-
-    private bool Contains(Vector3 position)
-    {
-        return GetIndicatorAt(position) != null;
-    }
-
-    private GameObject GetIndicatorAt(Vector3 position)
-    {
-        if (indicators.Count == 0)
-        {
-            return null;
-        }
-
-        foreach (var indicator in indicators)
-        {
-            if (indicator.transform.position == position)
-            {
-                return indicator;
-            }
-        }
-
-        return null;
     }
 }
