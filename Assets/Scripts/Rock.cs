@@ -4,8 +4,9 @@ public class Rock : MonoBehaviour, IMineable
 {
     public Item itemInfo;
 
-    public void Mine(Character character)
+    public CardInfo Mine(Character character)
     {
         FindObjectOfType<Hand>().Add(character, itemInfo);
+        return itemInfo;
     }
 }

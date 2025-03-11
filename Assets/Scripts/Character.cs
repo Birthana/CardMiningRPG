@@ -4,6 +4,7 @@ using UnityEngine;
 public class Character : MonoBehaviour, IDamageable
 {
     public event Action<int> OnEnergyChange;
+    public event Action<CardInfo> OnMine;
     public int ENERGY = 100;
     public int MOVE_RANGE = 5;
     public int ATTACK_RANGE = 1;
@@ -28,6 +29,8 @@ public class Character : MonoBehaviour, IDamageable
         SetEnergy(ENERGY);
     }
 
+    public void AddToOnMine(Action<CardInfo> function) { OnMine += function; }
+
     public void Move(Vector3 position)
     {
         transform.position = position;
@@ -45,7 +48,8 @@ public class Character : MonoBehaviour, IDamageable
 
     public void Mine(IMineable mineable)
     {
-        mineable.Mine(this);
+        var item = mineable.Mine(this);
+        OnMine?.Invoke(item);
     }
 
     public int GetCurrentEnergy() { return currentHealth; }

@@ -38,8 +38,9 @@ public class CardDragger : MonoBehaviour
         var hit = Raycast.GetHitAtMouse();
         if (hit)
         {
-            pickUp = hit.collider.GetComponent<Card>();
-            previousPosition = pickUp.transform.position;
+            var cardUI = hit.collider.GetComponent<CardUI>();
+            pickUp = FindObjectOfType<Hand>().GetCard(cardUI);
+            previousPosition = pickUp.GetUIPosition();
             DisplayRangeIndicator();
         }
     }
@@ -67,7 +68,7 @@ public class CardDragger : MonoBehaviour
             return;
         }
 
-        pickUp.transform.position = mouse.GetMousePosition();
+        pickUp.SetUIPosition(mouse.GetMousePosition());
     }
 
     private void ReturnPickUp()
@@ -82,7 +83,7 @@ public class CardDragger : MonoBehaviour
             return;
         }
 
-        pickUp.transform.position = previousPosition;
+        pickUp.SetUIPosition(previousPosition);
         previousPosition = Vector3.zero;
         pickUp = null;
         rangeIndicator.Despawn();

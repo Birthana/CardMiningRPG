@@ -1,4 +1,4 @@
 public interface IMineable
 {
-    public abstract void Mine(Character character);
+    public abstract CardInfo Mine(Character character);
 }

@@ -1,23 +1,27 @@
+using System;
 using UnityEngine;
 
-public class Card : MonoBehaviour
+[Serializable]
+public class Card
 {
-    [SerializeField]private CardInfo cardInfo;
-    private SpriteRenderer spriteRenderer;
+    private CardInfo cardInfo;
+    private CardUI ui;
 
-    private void Awake()
-    {
-        spriteRenderer = GetComponent<SpriteRenderer>();
-    }
-
-    public void Setup(Character chara, CardInfo newCardInfo)
+    public Card(Character chara, CardInfo newCardInfo, CardUI cardUI)
     {
         cardInfo = newCardInfo;
         cardInfo.SetCharacter(chara);
-        spriteRenderer.sprite = cardInfo.sprite;
+        ui = cardUI;
+        ui.Setup(cardInfo);
     }
 
     public CardInfo GetInfo() { return cardInfo; }
+
+    public CardUI GetUI() { return ui; }
+
+    public Vector3 GetUIPosition() { return ui.transform.position; }
+
+    public void SetUIPosition(Vector3 position) { ui.transform.position = position; }
 
     public void Action(Mouse mouse, Ground ground)
     {
