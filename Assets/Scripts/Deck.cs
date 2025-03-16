@@ -7,10 +7,12 @@ public class Deck : MonoBehaviour
     public List<CardInfo> cards = new List<CardInfo>();
     private Character character;
     private Drop drop;
+    private int currentShuffleEnergyCost;
 
     private void Awake()
     {
         drop = FindObjectOfType<Drop>();
+        currentShuffleEnergyCost = shuffleEnergyCost;
         Shuffle();
     }
 
@@ -23,7 +25,8 @@ public class Deck : MonoBehaviour
     {
         if (cards.Count == 0)
         {
-            character.DecreaseEnergy(shuffleEnergyCost);
+            character.DecreaseEnergy(currentShuffleEnergyCost);
+            currentShuffleEnergyCost += shuffleEnergyCost;
             drop.ShuffleToDeck();
         }
 

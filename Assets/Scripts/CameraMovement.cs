@@ -25,7 +25,7 @@ public class CameraMovement : MonoBehaviour
             Move(Vector3.right);
         }
 
-        if (mousePosition.y < OFFSET)
+        if (mousePosition.y < OFFSET / 3)
         {
             Move(Vector3.down);
         }

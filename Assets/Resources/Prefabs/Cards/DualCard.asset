@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24b54945c1ba6844bb955034c28c6c6f, type: 3}
+  m_Name: DualCard
+  m_EditorClassIdentifier: 
+  sprite: {fileID: 360455261, guid: cb1c78248ce41dc4287d8218d6e0c3fc, type: 3}
+  energyCost: 3
+  cardInfo1: {fileID: 11400000, guid: 344e1371dfcbd1e4980e63cb49af1be6, type: 2}
+  cardInfo2: {fileID: 11400000, guid: 718ac3a532657de459869a06dbec4715, type: 2}

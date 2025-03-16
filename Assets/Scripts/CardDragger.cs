@@ -1,11 +1,12 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CardDragger : MonoBehaviour
 {
     private Card pickUp;
-    private Vector3 previousPosition;
 
     private Hand hand;
+    private HandUI handUI;
     private Mouse mouse;
     private Ground ground;
     private RangeIndicator rangeIndicator;
@@ -14,6 +15,7 @@ public class CardDragger : MonoBehaviour
     private void Awake()
     {
         hand = FindObjectOfType<Hand>();
+        handUI = FindObjectOfType<HandUI>();
         mouse = new Mouse(Camera.main);
         ground = FindObjectOfType<Ground>();
         rangeIndicator = FindObjectOfType<RangeIndicator>();
@@ -39,8 +41,12 @@ public class CardDragger : MonoBehaviour
         if (hit)
         {
             var cardUI = hit.collider.GetComponent<CardUI>();
-            pickUp = FindObjectOfType<Hand>().GetCard(cardUI);
-            previousPosition = pickUp.GetUIPosition();
+            if (cardUI == null)
+            {
+                return;
+            }
+
+            pickUp = hand.GetCard(cardUI);
             DisplayRangeIndicator();
         }
     }
@@ -83,8 +89,7 @@ public class CardDragger : MonoBehaviour
             return;
         }
 
-        pickUp.SetUIPosition(previousPosition);
-        previousPosition = Vector3.zero;
+        LayoutRebuilder.ForceRebuildLayoutImmediate(handUI.GetComponent<RectTransform>());
         pickUp = null;
         rangeIndicator.Despawn();
     }

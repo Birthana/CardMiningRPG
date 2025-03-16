@@ -4,18 +4,19 @@ using UnityEngine;
 public class Hand : MonoBehaviour
 {
     public Character player;
-    public CardUI cardUIPrefab;
     [SerializeField]private List<Card> cards = new List<Card>();
 
     private Deck deck;
     private Drop drop;
     private HandUI handUi;
+    private CardSpawner cardSpawner;
 
     private void Awake()
     {
         deck = FindObjectOfType<Deck>();
         drop = FindObjectOfType<Drop>();
         handUi = FindObjectOfType<HandUI>();
+        cardSpawner = FindObjectOfType<CardSpawner>();
         DrawNewHand();
     }
 
@@ -31,8 +32,7 @@ public class Hand : MonoBehaviour
 
     public void Add(Character chara, CardInfo cardInfo)
     {
-        var newCardUI = Instantiate(cardUIPrefab, handUi.transform);
-        var newCard = new Card(chara, cardInfo, newCardUI);
+        var newCard = cardSpawner.Spawn(chara, cardInfo, handUi.transform);
         cards.Add(newCard);
     }
 
