@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e4998b4f86d34142962cb0237904d9a, type: 3}
   m_Name: Mine
   m_EditorClassIdentifier: 
+  cardName: Mine
   sprite: {fileID: 1374487460, guid: cb1c78248ce41dc4287d8218d6e0c3fc, type: 3}
   energyCost: 2

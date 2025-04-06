@@ -11,16 +11,15 @@ public class Spawner : MonoBehaviour
     private void Awake()
     {
         ground = FindObjectOfType<Ground>();
-        Spawn();
+        Spawn(prefab);
     }
-
-    public void Spawn()
+    public void Spawn(GameObject prefab)
     {
         var centerTilePosition = ground.GetClosetTilePosition(transform.position);
         var rngPositions = GetRngPositions(centerTilePosition);
         foreach (var rngPosition in rngPositions)
         {
-            SpawnAt(centerTilePosition + rngPosition);
+            SpawnAt(prefab, centerTilePosition + rngPosition);
         }
     }
 
@@ -49,7 +48,7 @@ public class Spawner : MonoBehaviour
         return new Vector3(Random.Range(-x, x), Random.Range(-y, y), 0);
     }
 
-    private void SpawnAt(Vector3 position)
+    private void SpawnAt(GameObject prefab, Vector3 position)
     {
         var enemy = Instantiate(prefab, transform);
         enemy.transform.position = position;

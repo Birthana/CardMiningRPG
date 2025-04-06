@@ -4,6 +4,7 @@ using UnityEngine;
 [Serializable]
 public class CardInfo : ScriptableObject
 {
+    public string cardName;
     public Sprite sprite;
     private Character character;
 

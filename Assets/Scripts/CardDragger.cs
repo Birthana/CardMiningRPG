@@ -38,17 +38,30 @@ public class CardDragger : MonoBehaviour
         }
 
         var hit = Raycast.GetHitAtMouse();
-        if (hit)
+        if (!hit)
         {
-            var cardUI = hit.collider.GetComponent<CardUI>();
-            if (cardUI == null)
-            {
-                return;
-            }
-
-            pickUp = hand.GetCard(cardUI);
-            DisplayRangeIndicator();
+            return;
         }
+
+        var card = PickUpHandCard(hit);
+        if (card == null)
+        {
+            return;
+        }
+
+        pickUp = card;
+        DisplayRangeIndicator();
+    }
+
+    private Card PickUpHandCard(RaycastHit2D hit)
+    {
+        var cardUI = hit.collider.GetComponent<CardUI>();
+        if (cardUI == null)
+        {
+            return null;
+        }
+
+        return hand.GetCard(cardUI);
     }
 
     private void DisplayRangeIndicator()
@@ -106,17 +119,31 @@ public class CardDragger : MonoBehaviour
             return;
         }
 
-        var cardInfo = pickUp.GetInfo();
-        if ((cardInfo is IActionCard && !((IActionCard)cardInfo).CanPlay(mouse, ground, rangeIndicator)) ||
-            cardInfo is not IActionCard)
+        if (CanNotCast(pickUp))
         {
             return;
         }
 
         pickUp.Action(mouse, ground);
-        hand.Remove(pickUp);
-        drop.Add(cardInfo);
-        pickUp = null;
         rangeIndicator.Despawn();
+        AfterCast();
+    }
+
+    private bool CanNotCast(Card card)
+    {
+        var cardInfo = card.GetInfo();
+        return ActionCardInNotRange(cardInfo) || cardInfo is not IActionCard;
+    }
+
+    private bool ActionCardInNotRange(CardInfo cardInfo)
+    {
+        return cardInfo is IActionCard && !((IActionCard)cardInfo).CanPlay(mouse, ground, rangeIndicator);
+    }
+
+    private void AfterCast()
+    {
+        hand.Remove(pickUp);
+        drop.Add(pickUp.GetInfo());
+        pickUp = null;
     }
 }

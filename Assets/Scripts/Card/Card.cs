@@ -23,6 +23,8 @@ public class Card
 
     public void SetUIPosition(Vector3 position) { ui.transform.position = position; }
 
+    public bool IsIn(Transform parent) { return ui.transform.parent == parent; }
+
     public void Action(Mouse mouse, Ground ground)
     {
         if (cardInfo is not IActionCard)

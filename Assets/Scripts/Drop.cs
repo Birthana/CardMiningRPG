@@ -11,6 +11,8 @@ public class Drop : MonoBehaviour
         deck = FindObjectOfType<Deck>();
     }
 
+    public List<CardInfo> Get() { return cards; }
+
     public void Add(CardInfo cardInfo)
     {
         cards.Add(cardInfo);

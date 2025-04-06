@@ -10,10 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 6545799589408274680}
   - component: {fileID: 6545799589408274679}
-  - component: {fileID: 6545799589408274678}
+  - component: {fileID: -3917361908092643700}
   - component: {fileID: 6545799589408274681}
   m_Layer: 0
-  m_Name: Damageable
+  m_Name: Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -86,7 +86,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &6545799589408274678
+--- !u!114 &-3917361908092643700
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -95,9 +95,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 6545799589408274677}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 431ad8fae2635a64398096fd0be3a231, type: 3}
+  m_Script: {fileID: 11500000, guid: cd58171f2149b7e4ebcad7f7303537b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  HEALTH: 5
   ENERGY: 100
   MOVE_RANGE: 5
   ATTACK_RANGE: 1
@@ -105,6 +106,9 @@ MonoBehaviour:
   MINE_RANGE: 1
   MINE_DAMAGE: 2
   currentHealth: 0
+  currentEnergy: 0
+  loot: {fileID: 11400000, guid: 154dc495dff9f5648b65f3956f848d74, type: 2}
+  wound: {fileID: 11400000, guid: 0853e8505853b49409d4919e04579838, type: 2}
 --- !u!61 &6545799589408274681
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -7,7 +7,8 @@ public class CardSpawner : MonoBehaviour
     public Card Spawn(Character chara, CardInfo cardInfo, Transform parent)
     {
         var newCardUI = Instantiate(cardUIPrefab, parent);
-        var newCard = new Card(chara, cardInfo, newCardUI);
+        var newCardInfo = Instantiate(cardInfo);
+        var newCard = new Card(chara, newCardInfo, newCardUI);
         return newCard;
     }
 }

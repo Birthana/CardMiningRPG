@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public struct RangePosition
 {
@@ -33,10 +34,11 @@ public class RangeIndicator : MonoBehaviour
             }
 
             var adjacentPositions = GetAdjacentPositions(positionToCheck.position);
-            foreach(var adjacentPosition in adjacentPositions)
+            foreach (var adjacentPosition in adjacentPositions)
             {
                 if (Raycast.HitsContain<IDamageable>(adjacentPosition) ||
-                    Raycast.HitsContain<IMineable>(adjacentPosition))
+                    Raycast.HitsContain<IMineable>(adjacentPosition) ||
+                    Raycast.HitsContain<Tilemap>(adjacentPosition))
                 {
                     continue;
                 }
