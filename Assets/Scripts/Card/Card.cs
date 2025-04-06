@@ -25,7 +25,7 @@ public class Card
 
     public bool IsIn(Transform parent) { return ui.transform.parent == parent; }
 
-    public void Action(Mouse mouse, Ground ground)
+    public void Action(Ground ground)
     {
         if (cardInfo is not IActionCard)
         {
@@ -33,6 +33,6 @@ public class Card
         }
 
         var action = (IActionCard)cardInfo;
-        action.Action(mouse, ground);
+        action.Action(ground);
     }
 }

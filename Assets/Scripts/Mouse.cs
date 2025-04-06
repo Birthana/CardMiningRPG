@@ -1,15 +1,10 @@
 using UnityEngine;
 
-public class Mouse
+public static class Mouse
 {
-    private Camera cam;
+    private static Camera cam = Camera.main;
 
-    public Mouse(Camera camera)
-    {
-        cam = camera;
-    }
-
-    public Vector3 GetMousePosition()
+    public static Vector3 GetMousePosition()
     {
         var mousePosition = cam.ScreenToWorldPoint(Input.mousePosition);
         mousePosition.z = 0.0f;

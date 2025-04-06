@@ -14,11 +14,11 @@ public class Attack : CardInfo, IActionCard, IHasRange
 
     public int GetEnergy() { return energyCost; }
 
-    public bool CanPlay(Mouse mouse, Ground ground, RangeIndicator rangeIndicator)
+    public bool CanPlay(Ground ground, RangeIndicator rangeIndicator)
     {
-        var positionToAttack = ground.GetClosetTilePosition(mouse.GetMousePosition());
+        var positionToAttack = ground.GetClosetTilePosition(Mouse.GetMousePosition());
         var inRange = rangeIndicator.IsInRange(positionToAttack);
-        var hasTarget = HasTargetAt(mouse.GetMousePosition());
+        var hasTarget = HasTargetAt(Mouse.GetMousePosition());
         var hasEnergy = GetCharacter().GetCurrentEnergy() >= GetEnergy();
         return inRange && hasTarget && hasEnergy;
     }
@@ -45,10 +45,10 @@ public class Attack : CardInfo, IActionCard, IHasRange
         return null;
     }
 
-    public void Action(Mouse mouse, Ground ground)
+    public void Action(Ground ground)
     {
         GetCharacter().DecreaseEnergy(GetEnergy());
-        var positionToAttack = ground.GetClosetTilePosition(mouse.GetMousePosition());
+        var positionToAttack = ground.GetClosetTilePosition(Mouse.GetMousePosition());
         var damageable = GetTargetAt(positionToAttack);
         GetCharacter().Attack(damageable);
     }

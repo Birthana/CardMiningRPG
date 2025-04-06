@@ -14,22 +14,22 @@ public class Move : CardInfo, IActionCard, IHasRange
 
     public int GetEnergy() { return energyCost; }
 
-    public bool CanPlay(Mouse mouse, Ground ground, RangeIndicator rangeIndicator)
+    public bool CanPlay(Ground ground, RangeIndicator rangeIndicator)
     {
-        var positionToMove = ground.GetClosetTilePosition(mouse.GetMousePosition());
+        var positionToMove = ground.GetClosetTilePosition(Mouse.GetMousePosition());
         var inRange = rangeIndicator.IsInRange(positionToMove);
         return inRange;
     }
 
-    public void Action(Mouse mouse, Ground ground)
+    public void Action(Ground ground)
     {
         GetCharacter().DecreaseEnergy(GetEnergy());
-        MoveToMousePosition(mouse, ground);
+        MoveToMousePosition(ground);
     }
 
-    private void MoveToMousePosition(Mouse mouse, Ground ground)
+    private void MoveToMousePosition(Ground ground)
     {
-        var positionToMove = ground.GetClosetTilePosition(mouse.GetMousePosition());
+        var positionToMove = ground.GetClosetTilePosition(Mouse.GetMousePosition());
         GetCharacter().Move(positionToMove);
     }
 }

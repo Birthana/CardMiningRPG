@@ -2,11 +2,9 @@ using UnityEngine;
 
 public static class Raycast
 {
-    private static Camera cam = Camera.main;
-
     public static RaycastHit2D GetHitAtMouse()
     {
-        return Physics2D.Raycast(new Mouse(cam).GetMousePosition(), Vector2.zero);
+        return Physics2D.Raycast(Mouse.GetMousePosition(), Vector2.zero);
     }
 
     public static RaycastHit2D[] GetHitsAt(Vector3 position)

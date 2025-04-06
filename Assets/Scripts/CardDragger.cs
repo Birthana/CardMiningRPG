@@ -7,7 +7,6 @@ public class CardDragger : MonoBehaviour
 
     private Hand hand;
     private HandUI handUI;
-    private Mouse mouse;
     private Ground ground;
     private RangeIndicator rangeIndicator;
     private Drop drop;
@@ -16,7 +15,6 @@ public class CardDragger : MonoBehaviour
     {
         hand = FindObjectOfType<Hand>();
         handUI = FindObjectOfType<HandUI>();
-        mouse = new Mouse(Camera.main);
         ground = FindObjectOfType<Ground>();
         rangeIndicator = FindObjectOfType<RangeIndicator>();
         drop = FindObjectOfType<Drop>();
@@ -87,7 +85,7 @@ public class CardDragger : MonoBehaviour
             return;
         }
 
-        pickUp.SetUIPosition(mouse.GetMousePosition());
+        pickUp.SetUIPosition(Mouse.GetMousePosition());
     }
 
     private void ReturnPickUp()
@@ -124,7 +122,7 @@ public class CardDragger : MonoBehaviour
             return;
         }
 
-        pickUp.Action(mouse, ground);
+        pickUp.Action(ground);
         rangeIndicator.Despawn();
         AfterCast();
     }
@@ -137,7 +135,7 @@ public class CardDragger : MonoBehaviour
 
     private bool ActionCardInNotRange(CardInfo cardInfo)
     {
-        return cardInfo is IActionCard && !((IActionCard)cardInfo).CanPlay(mouse, ground, rangeIndicator);
+        return cardInfo is IActionCard && !((IActionCard)cardInfo).CanPlay(ground, rangeIndicator);
     }
 
     private void AfterCast()

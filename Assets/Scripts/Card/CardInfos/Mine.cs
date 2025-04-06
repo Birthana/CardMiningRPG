@@ -14,11 +14,11 @@ public class Mine : CardInfo, IActionCard, IHasRange
 
     public int GetEnergy() { return energyCost; }
 
-    public bool CanPlay(Mouse mouse, Ground ground, RangeIndicator rangeIndicator)
+    public bool CanPlay(Ground ground, RangeIndicator rangeIndicator)
     {
-        var positionToMine = ground.GetClosetTilePosition(mouse.GetMousePosition());
+        var positionToMine = ground.GetClosetTilePosition(Mouse.GetMousePosition());
         var inRange = rangeIndicator.IsInRange(positionToMine);
-        var hasTarget = HasTargetAt(mouse.GetMousePosition());
+        var hasTarget = HasTargetAt(Mouse.GetMousePosition());
         return inRange && hasTarget;
     }
 
@@ -44,10 +44,10 @@ public class Mine : CardInfo, IActionCard, IHasRange
         return null;
     }
 
-    public void Action(Mouse mouse, Ground ground)
+    public void Action(Ground ground)
     {
         GetCharacter().DecreaseEnergy(GetEnergy());
-        var positionToMine = ground.GetClosetTilePosition(mouse.GetMousePosition());
+        var positionToMine = ground.GetClosetTilePosition(Mouse.GetMousePosition());
         var mineable = GetTargetAt(positionToMine);
         GetCharacter().Mine(mineable);
     }
